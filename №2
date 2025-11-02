@@ -1,0 +1,91 @@
+
+using System;
+
+class BankAccount
+{
+    public string AccountNumber { get; protected set; }
+    public decimal Balance { get; protected set; }
+    public string Owner { get; protected set; }
+
+    public BankAccount(string accountNumber, string owner, decimal balance)
+    {
+        AccountNumber = accountNumber;
+        Owner = owner;
+        Balance = balance;
+    }
+
+    public virtual void DisplayInfo()
+    {
+        Console.WriteLine($"Account: {AccountNumber}, Owner: {Owner}, Balance: {Balance:C}");
+    }
+}
+
+class CheckingAccount : BankAccount
+{
+    public decimal OverdraftLimit { get; private set; }
+
+    public CheckingAccount(string accountNumber, string owner, decimal balance, decimal overdraftLimit)
+        : base(accountNumber, owner, balance)
+    {
+        OverdraftLimit = overdraftLimit;
+    }
+
+    public override void DisplayInfo()
+    {
+        base.DisplayInfo();
+        Console.WriteLine($"Overdraft limit: {OverdraftLimit:C}");
+    }
+}
+
+class SavingsAccount : BankAccount
+{
+    public double InterestRate { get; private set; }
+
+    public SavingsAccount(string accountNumber, string owner, decimal balance, double interestRate)
+        : base(accountNumber, owner, balance)
+    {
+        InterestRate = interestRate;
+    }
+
+    public override void DisplayInfo()
+    {
+        base.DisplayInfo();
+        Console.WriteLine($"Interest rate: {InterestRate:P}");
+    }
+}
+
+class CreditAccount : BankAccount
+{
+    public decimal CreditLimit { get; private set; }
+    public DateTime DueDate { get; private set; }
+
+    public CreditAccount(string accountNumber, string owner, decimal balance, decimal creditLimit, DateTime dueDate)
+        : base(accountNumber, owner, balance)
+    {
+        CreditLimit = creditLimit;
+        DueDate = dueDate;
+    }
+
+    public override void DisplayInfo()
+    {
+        base.DisplayInfo();
+        Console.WriteLine($"Credit limit: {CreditLimit:C}, Due date: {DueDate:d}");
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        BankAccount acc1 = new CheckingAccount("CHK1001", "Ivanov I.I.", 1500, 500);
+        BankAccount acc2 = new SavingsAccount("SAV1001", "Petrova A.A.", 10000, 0.03);
+        BankAccount acc3 = new CreditAccount("CRD1001", "Sidorov S.S.", -2000, 5000, DateTime.Now.AddMonths(1));
+
+        acc1.DisplayInfo();
+        Console.WriteLine();
+        acc2.DisplayInfo();
+        Console.WriteLine();
+        acc3.DisplayInfo();
+    }
+}
+
