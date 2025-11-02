@@ -1,0 +1,119 @@
+
+using System;
+
+public class Animal
+{
+    public string Вид { get; }
+    public int Возраст { get; }
+    public string СредаОбитания { get; }
+    public string Рацион { get; }
+
+    public Animal(string вид, int возраст, string средаОбитания, string рацион)
+    {
+        Вид = вид;
+        Возраст = возраст;
+        СредаОбитания = средаОбитания;
+        Рацион = рацион;
+    }
+
+    public virtual void Display()
+    {
+        Console.WriteLine($"Вид: {Вид}, Возраст: {Возраст} лет, Среда обитания: {СредаОбитания}, Рацион: {Рацион}");
+    }
+}
+
+public class Mammal : Animal
+{
+    public string ТипМеха { get; }
+    public int ПродолжительностьБеременности { get; }
+
+    public Mammal(string вид, int возраст, string средаОбитания, string рацион, string типМеха, int продолжительностьБеременности)
+        : base(вид, возраст, средаОбитания, рацион)
+    {
+        ТипМеха = типМеха;
+        ПродолжительностьБеременности = продолжительностьБеременности;
+    }
+
+    public override void Display()
+    {
+        base.Display();
+        Console.WriteLine($"Тип меха: {ТипМеха}, Продолжительность беременности: {ПродолжительностьБеременности} дней");
+    }
+}
+
+public class Bird : Animal
+{
+    public double РазмахКрыльев { get; }
+    public string ТипГнездования { get; }
+
+    public Bird(string вид, int возраст, string средаОбитания, string рацион, double размахКрыльев, string типГнездования)
+        : base(вид, возраст, средаОбитания, рацион)
+    {
+        РазмахКрыльев = размахКрыльев;
+        ТипГнездования = типГнездования;
+    }
+
+    public override void Display()
+    {
+        base.Display();
+        Console.WriteLine($"Размах крыльев: {РазмахКрыльев} м, Тип гнездования: {ТипГнездования}");
+    }
+}
+
+public class Reptile : Animal
+{
+    public string ТипКожи { get; }
+    public double ТемператураСреды { get; }
+
+    public Reptile(string вид, int возраст, string средаОбитания, string рацион, string типКожи, double температураСреды)
+        : base(вид, возраст, средаОбитания, рацион)
+    {
+        ТипКожи = типКожи;
+        ТемператураСреды = температураСреды;
+    }
+
+    public override void Display()
+    {
+        base.Display();
+        Console.WriteLine($"Тип кожи: {ТипКожи}, Температура среды: {ТемператураСреды} °C");
+    }
+}
+
+public class Fish : Animal
+{
+    public string ТипЧешуи { get; }
+    public double ГлубинаОбитания { get; }
+
+    public Fish(string вид, int возраст, string средаОбитания, string рацион, string типЧешуи, double глубинаОбитания)
+        : base(вид, возраст, средаОбитания, рацион)
+    {
+        ТипЧешуи = типЧешуи;
+        ГлубинаОбитания = глубинаОбитания;
+    }
+
+    public override void Display()
+    {
+        base.Display();
+        Console.WriteLine($"Тип чешуи: {ТипЧешуи}, Глубина обитания: {ГлубинаОбитания} м");
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        Animal mammal = new Mammal("Тигр", 5, "Леса", "Мясо", "Короткий", 105);
+        Animal bird = new Bird("Орёл", 3, "Горы", "Птицы и мелкие животные", 2.3, "Гнездится на скалах");
+        Animal reptile = new Reptile("Крокодил", 12, "Речные берега", "Рыба", "Чешуйчатая", 28.5);
+        Animal fish = new Fish("Сом", 4, "Пресная вода", "Рыбная добыча", "Ганноидная", 15);
+
+        mammal.Display();
+        Console.WriteLine();
+        bird.Display();
+        Console.WriteLine();
+        reptile.Display();
+        Console.WriteLine();
+        fish.Display();
+    }
+}
+
