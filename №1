@@ -1,0 +1,124 @@
+using System;
+
+public class Employee
+{
+    public string Name { get; set; }
+    public string Position { get; set; }
+    public decimal Salary { get; set; }
+    public DateTime HireDate { get; set; }
+
+    public Employee(string name, string position, decimal salary, DateTime hireDate)
+    {
+        Name = name;
+        Position = position;
+        Salary = salary;
+        HireDate = hireDate;
+    }
+
+    public virtual void DisplayInfo()
+    {
+        Console.WriteLine($"Имя: {Name}");
+        Console.WriteLine($"Должность: {Position}");
+        Console.WriteLine($"Зарплата: {Salary:C}");
+        Console.WriteLine($"Дата приема: {HireDate.ToShortDateString()}");
+    }
+}
+
+// Класс Manager, наследуется от Employee
+public class Manager : Employee
+{
+    public int TeamSize { get; set; }
+
+    public Manager(string name, string position, decimal salary, DateTime hireDate, int teamSize)
+        : base(name, position, salary, hireDate)
+    {
+        TeamSize = teamSize;
+    }
+
+    public void ConductMeeting()
+    {
+        Console.WriteLine($"{Name} (Менеджер) проводит собрание.");
+    }
+
+    public override void DisplayInfo()
+    {
+        base.DisplayInfo(); 
+        Console.WriteLine($"Размер команды: {TeamSize}");
+    }
+}
+
+
+public class Developer : Employee
+{
+    public string ProgrammingLanguage { get; set; }
+
+    public Developer(string name, string position, decimal salary, DateTime hireDate, string programmingLanguage)
+        : base(name, position, salary, hireDate)
+    {
+        ProgrammingLanguage = programmingLanguage;
+    }
+
+    public void WriteCode()
+    {
+        Console.WriteLine($"{Name} (Разработчик) пишет код на {ProgrammingLanguage}.");
+    }
+
+    public override void DisplayInfo()
+    {
+        base.DisplayInfo();
+        Console.WriteLine($"Язык программирования: {ProgrammingLanguage}");
+    }
+}
+
+
+public class Director : Employee
+{
+    public string Department { get; set; }
+
+    public Director(string name, string position, decimal salary, DateTime hireDate, string department)
+        : base(name, position, salary, hireDate)
+    {
+        Department = department;
+    }
+
+    public void ApproveBudget()
+    {
+        Console.WriteLine($"{Name} (Директор) утверждает бюджет.");
+    }
+
+    public override void DisplayInfo()
+    {
+        base.DisplayInfo();
+        Console.WriteLine($"Отдел: {Department}");
+    }
+}
+
+
+public class Program
+{
+    public static void Main(string[] args)
+    {
+        // Создаем экземпляры различных типов сотрудников
+        Employee employee1 = new Employee("Иван Петров", "Специалист", 50000, new DateTime(2022, 5, 15));
+        Manager manager1 = new Manager("Анна Сидорова", "Руководитель отдела", 75000, new DateTime(2020, 1, 10), 10);
+        Developer developer1 = new Developer("Сергей Иванов", "Программист", 60000, new DateTime(2021, 8, 20), "C#");
+        Director director1 = new Director("Елена Кузнецова", "Генеральный директор", 120000, new DateTime(2018, 3, 1), "Общее управление");
+
+        // Отображаем информацию о сотрудниках
+        Console.WriteLine("Информация о сотрудниках");
+        employee1.DisplayInfo();
+        Console.WriteLine();
+
+        manager1.DisplayInfo();
+        manager1.ConductMeeting();
+        Console.WriteLine();
+
+        developer1.DisplayInfo();
+        developer1.WriteCode();
+        Console.WriteLine();
+
+        director1.DisplayInfo();
+        director1.ApproveBudget();
+        Console.WriteLine();
+    }
+}
