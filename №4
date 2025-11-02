@@ -1,0 +1,97 @@
+
+using System;
+
+public class Course
+{
+    public string Название { get; }
+    public string Описание { get; }
+    public string Автор { get; }
+    public decimal Цена { get; }
+
+    public Course(string название, string описание, string автор, decimal цена)
+    {
+        Название = название;
+        Описание = описание;
+        Автор = автор;
+        Цена = цена;
+    }
+
+    public virtual void Display()
+    {
+        Console.WriteLine($"Курс: {Название}, Описание: {Описание}, Автор: {Автор}, Цена: {Цена} руб.");
+    }
+}
+
+public class VideoCourse : Course
+{
+    public int КоличествоВидео { get; }
+    public double ОбщаяДлительность { get; }
+
+    public VideoCourse(string название, string описание, string автор, decimal цена, int количествоВидео, double общаяДлительность)
+        : base(название, описание, автор, цена)
+    {
+        КоличествоВидео = количествоВидео;
+        ОбщаяДлительность = общаяДлительность;
+    }
+
+    public override void Display()
+    {
+        base.Display();
+        Console.WriteLine($"Видео: {КоличествоВидео} штук, Общая длительность: {ОбщаяДлительность} ч");
+    }
+}
+
+public class TextCourse : Course
+{
+    public int КоличествоГлав { get; }
+    public int ОбъемТекста { get; }
+
+    public TextCourse(string название, string описание, string автор, decimal цена, int количествоГлав, int объемТекста)
+        : base(название, описание, автор, цена)
+    {
+        КоличествоГлав = количествоГлав;
+        ОбъемТекста = объемТекста;
+    }
+
+    public override void Display()
+    {
+        base.Display();
+        Console.WriteLine($"Глав: {КоличествоГлав}, Объем текста: {ОбъемТекста} тыс. слов");
+    }
+}
+
+public class InteractiveCourse : Course
+{
+    public int КоличествоУпражнений { get; }
+    public string СистемаПроверки { get; }
+
+    public InteractiveCourse(string название, string описание, string автор, decimal цена, int количествоУпражнений, string системаПроверки)
+        : base(название, описание, автор, цена)
+    {
+        КоличествоУпражнений = количествоУпражнений;
+        СистемаПроверки = системаПроверки;
+    }
+
+    public override void Display()
+    {
+        base.Display();
+        Console.WriteLine($"Упражнений: {КоличествоУпражнений}, Система проверки: {СистемаПроверки}");
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        Course video = new VideoCourse("Видео курс C#", "Программирование на C#", "Иван Иванов", 2500, 20, 15.5);
+        Course text = new TextCourse("Текстовый курс Python", "Изучение Python", "Мария Петрова", 1800, 10, 50);
+        Course interactive = new InteractiveCourse("Интерактивный курс JavaScript", "Практика JavaScript", "Анна Смирнова", 3000, 25, "Автоматическая проверка");
+
+        video.Display();
+        Console.WriteLine();
+        text.Display();
+
+        Console.WriteLine();
+        interactive.Display();
+    }
+}
